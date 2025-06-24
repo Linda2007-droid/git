@@ -1,0 +1,113 @@
+#include <iostream>
+using namespace std;
+
+class data_mhs {
+  private:
+    struct mhs_ {
+      long int nim;
+      string nama;
+      string prodi;
+      long long telp;
+    };
+    int jum_mhs = 0;
+    mhs_ mhs[100];
+
+  public:
+    void masukkan_data () {
+
+        cout << "Masukkan data mahasiswa ke-" << jum__mhs+1 << endl;
+        cout << "Masukkan Nama      : "; cin >> mhs[jum_mhs].nama;
+        cout << "Masukkan Nim       : "; cin >> mhs[jum_mhs].nin;
+        cout << "Masukkan Prodi     : "; cin >> mhs[jum_mhs].prodi;
+        cout << "Masukkan No. Telp  : "; cin >> mhs[jum_mhs].telp;
+
+       jum_mhs++;
+    }
+
+    void tampilkan_data (){
+      for (int i=0; i<jum_mhs; i++) {
+        cout << "Data mahasiswa ke-" << i+1 << endl;
+        cout << "Nama        : " << mhs[i].nama << endl;
+        cout << "NIM         : " << mhs[i].nim << endl;
+        cout << "Prodi       : " << mhs[i].nama << endl;
+        cout << "No. Telp    : " << mhs[i].nama << endl;
+      }
+    }
+
+    void urut () {
+      mhs_ temp
+      int pil;
+
+      cout << "Urutkan data berdasarkan nim" << endl;
+      cout << "1. Ascending" << endl;
+      cout << "2. Descending" << endl;
+      COUT << "Masukkan pilihan anda: "; cin >> pil;
+      
+      if (pil == 1) {
+        for (int i=-0; i<jum_mhs; i++) {
+            for (int j=0; j<jum_mhs; j++) {
+              if (mhs[i].nim < mhs[j].nim) {
+                temp = mhs[i];
+                mhs[i] = mhs[j];
+                mhs[j] = temp;
+              }
+            }
+          }
+        }
+      } else if (pil == 2) {
+        for (int i=-0; i<jum_mhs; i++) {
+            for (int j=0; j<jum_mhs; j++) {
+              if (mhs[i].nim > mhs[j].nim) {
+                temp = mhs[i];
+                mhs[i] = mhs[j];
+                mhs[j] = temp;
+              }
+            }
+          }
+        }
+      } else {
+        cout << "Pilihan tidak tersedia";
+      }
+      
+}
+
+int main () {
+  data_mhs mahasigma;
+
+  int pilihan;
+
+  do{
+    cout<<"\n======= Data =======\n";
+    cout<<"\n1. Masukkan Data\n";
+    cout<<"\n2. Tampilkan Data \n";
+    cout<<"\n3. Urutkan Data\n";
+    cout<<"\n4. Keluar\n";
+    cout<<"\nMasukkan pilihan anda: \n";
+    cin>>pilihan;
+
+    switch(pilihan){
+      case 1:
+      mahasigma.masukkan_data();
+      system("pause");
+      system("cls");
+      break;
+      case 2:
+      mahasigma.tampilkan_data();
+        system("pause");
+        system("cls");
+      break;
+      case 3:
+      mahasigma.urut();
+        system("pause");
+        system("cls");
+      break;  
+      case 4:
+      cout<<"Terima kasih";
+      break;
+      default:
+      cout<<"Pilihan tidak tersedia";
+      break;
+      }
+    }while(pilihan != 4);
+  return 0;
+}
