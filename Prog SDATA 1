@@ -1,0 +1,88 @@
+#include <iostream>
+using namespace std;
+
+class Array1D {
+    friend ostream& operator<<(ostream&, const Array1D&);
+    friend istream& operator>>(istream&, Array1D&);
+public:
+    Array1D(int ukuran = 5);   // constructor dengan parameter ukuran
+    ~Array1D();                // destructor untuk hapus memori
+    void cetak();
+    void geser_kiri();
+    void geser_kanan();
+private:
+    char* A;       // pointer untuk array dinamis
+    int n;         // ukuran array
+};
+
+// Constructor
+Array1D::Array1D(int ukuran) {
+    n = ukuran;
+    A = new char[n]; // alokasi dinamis
+}
+
+// Destructor
+Array1D::~Array1D() {
+    delete[] A; // bebaskan memori
+}
+
+// Cetak isi array
+void Array1D::cetak() {
+    for (int i = 0; i < n; i++) {
+        cout << A[i] << " ";
+    }
+    cout << endl;
+}
+
+// Geser ke kiri
+void Array1D::geser_kiri() {
+    char temp = A[0];
+    for (int i = 0; i < n - 1; i++) {
+        A[i] = A[i + 1];
+    }
+    A[n - 1] = temp;
+}
+
+// Geser ke kanan
+void Array1D::geser_kanan() {
+    char temp = A[n - 1];
+    for (int i = n - 1; i > 0; i--) {
+        A[i] = A[i - 1];
+    }
+    A[0] = temp;
+}
+
+// Overload operator untuk output
+ostream& operator<<(ostream& out, const Array1D& arr) {
+    for (int i = 0; i < arr.n; i++) {
+        out << arr.A[i] << " ";
+    }
+    return out;
+}
+
+// Overload operator untuk input
+istream& operator>>(istream& in, Array1D& arr) {
+    for (int i = 0; i < arr.n; i++) {
+        cout << "Masukkan elemen ke-" << i << ": ";
+        in >> arr.A[i];
+    }
+    return in;
+}
+
+// Main
+int main() {
+    int ukuran;
+    cout << "Masukkan ukuran array: ";
+    cin >> ukuran;
+
+    Array1D arr(ukuran);
+    cin >> arr;
+
+    cout << "Isi array: " << arr << endl;
+    arr.geser_kiri();
+    cout << "Setelah geser kiri: " << arr << endl;
+    arr.geser_kanan();
+    cout << "Setelah geser kanan: " << arr << endl;
+
+    return 0;
+}
