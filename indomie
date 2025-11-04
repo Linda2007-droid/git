@@ -111,3 +111,136 @@ int main () {
     }while(pilihan != 4);
   return 0;
 }
+
+
+|================================================|
+|           POST PERTEMUAN 6 SDATA               |
+|================================================|
+
+#include <iostream>
+using namespace std;
+
+class StackStatic {
+private:
+    int top;
+    int arr[5]; // ukuran statis 5
+public:
+    StackStatic() { top = -1; }
+
+    void push(int value) {
+        if(top >= 4) {
+            cout << "Stack penuh!\n";
+        } else {
+            arr[++top] = value;
+            cout << value << " ditambahkan ke stack\n";
+        }
+    }
+
+    void pop() {
+        if(top < 0) {
+            cout << "Stack kosong!\n";
+        } else {
+            cout << arr[top--] << " dihapus dari stack\n";
+        }
+    }
+
+    void display() {
+        if(top < 0) {
+            cout << "Stack kosong!\n";
+            return;
+        }
+        cout << "Stack: ";
+        for(int i = 0; i <= top; i++) {
+            cout << arr[i] << " ";
+        }
+        cout << endl;
+    }
+};
+
+int main() {
+    StackStatic s;
+
+    s.push(10);
+    s.push(20);
+    s.push(30);
+    s.display();
+
+    s.pop();
+    s.display();
+
+    return 0;
+}
+//===============================
+//        DINAMIS
+//===============================
+
+#include <iostream>
+using namespace std;
+
+class StackDynamic {
+private:
+    int top;
+    int *arr;
+    int capacity;
+public:
+    StackDynamic(int size) {
+        capacity = size;
+        arr = new int[capacity];
+        top = -1;
+    }
+
+    ~StackDynamic() {
+        delete[] arr;
+    }
+
+    void push(int value) {
+        if(top >= capacity - 1) {
+            cout << "Stack penuh, menambah kapasitas...\n";
+            // buat array baru lebih besar
+            int *newArr = new int[capacity*2];
+            for(int i=0; i<=top; i++) newArr[i] = arr[i];
+            delete[] arr;
+            arr = newArr;
+            capacity *= 2;
+        }
+        arr[++top] = value;
+        cout << value << " ditambahkan ke stack\n";
+    }
+
+    void pop() {
+        if(top < 0) {
+            cout << "Stack kosong!\n";
+        } else {
+            cout << arr[top--] << " dihapus dari stack\n";
+        }
+    }
+
+    void display() {
+        if(top < 0) {
+            cout << "Stack kosong!\n";
+            return;
+        }
+        cout << "Stack: ";
+        for(int i = 0; i <= top; i++) cout << arr[i] << " ";
+        cout << endl;
+    }
+};
+
+int main() {
+    StackDynamic s(3);
+
+    s.push(5);
+    s.push(10);
+    s.push(15);
+    s.display();
+
+    s.pop();
+    s.display();
+
+    s.push(20);
+    s.push(25); // otomatis memperbesar kapasitas
+    s.display();
+
+    return 0;
+}
+
