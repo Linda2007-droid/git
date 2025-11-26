@@ -1,0 +1,104 @@
+POST TEST 6 PBO  :
+Class main 
+public class Main {
+    public static void main(String[] args) {
+        // Membuat nasabah
+        Nasabah n1 = new Nasabah("Budi", "Yogyakarta");
+
+        // Membuka rekening
+        n1.bukaRekening("001");
+        n1.bukaRekening("002");
+
+        // Mengambil objek rekening pertama
+        Rekening r1 = n1.getRekening(0);
+
+        // Transaksi
+        r1.deposit(500000);
+        r1.withdraw(150000);
+
+        System.out.println("Nama Nasabah : " + n1.getNama());
+        System.out.println("Jumlah Rekening : " + n1.getJumlahRekening());
+        System.out.println("Saldo Rekening 001 : " + r1.getSaldo());
+    }
+}
+
+class Rekening :
+public class Rekening {
+    private String noRekening;
+    private double saldo;
+
+    // Konstruktor
+    public Rekening(String noRekening) {
+        this.noRekening = noRekening;
+        this.saldo = 0.0;
+    }
+
+    // Method deposit
+    public void deposit(double jumlah) {
+        if (jumlah > 0) {
+            saldo += jumlah;
+        }
+    }
+
+    // Method withdraw
+    public void withdraw(double jumlah) {
+        if (jumlah > 0 && saldo >= jumlah) {
+            saldo -= jumlah;
+        }
+    }
+
+    // Getter
+    public String getNoRekening() {
+        return noRekening;
+    }
+
+    public double getSaldo() {
+        return saldo;
+    }
+}
+
+Class Nasabah :
+public class Nasabah {
+    private String nama;
+    private String alamat;
+    private int jumlahRekening;
+    private Rekening[] rek = new Rekening[5];   // Maksimal 5 rekening
+
+    // Konstruktor
+    public Nasabah(String nama, String alamat) {
+        this.nama = nama;
+        this.alamat = alamat;
+        this.jumlahRekening = 0;
+    }
+
+    // Method buka rekening
+    public void bukaRekening(String noRekening) {
+        if (jumlahRekening < 5) {
+            rek[jumlahRekening] = new Rekening(noRekening);
+            jumlahRekening++;
+        } else {
+            System.out.println("Maksimal rekening telah tercapai (5 rekening).");
+        }
+    }
+
+    // Getter
+    public String getNama() {
+        return nama;
+    }
+
+    public String getAlamat() {
+        return alamat;
+    }
+
+    public int getJumlahRekening() {
+        return jumlahRekening;
+    }
+
+    public Rekening getRekening(int index) {
+        if (index >= 0 && index < jumlahRekening) {
+            return rek[index];
+        }
+        return null;
+    }
+}
+ 
